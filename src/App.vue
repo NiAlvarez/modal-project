@@ -1,7 +1,7 @@
 <template>
   <h1>{{ title }}</h1>
   <p>Welcome...</p>
-  <div v-if="showModal">
+  <teleport to=".modals"  v-if="showModal">
     <Modal  theme="sale" @close="toggleModal" >
       <template v-slot:links>
        <a href="#">Sign up now</a>      
@@ -10,8 +10,17 @@
       <h1>Hidden Cat Giveaway!!</h1>
       <p>Grab your swag for half price!!</p>
     </Modal>
+  </teleport>
+
+  <div v-if="showModalTwo">
+    <Modal @close="toggleModalTwo" >
+        <h1>Why are you opening this?</h1>
+        <p>Check the first modal and BUY</p>          
+    </Modal>
   </div>
+
   <button @click="toggleModal">Open modal</button>
+  <button @click="toggleModalTwo">Open second modal</button>
 </template>
 
 <script>
@@ -24,21 +33,23 @@ export default {
   data(){
     return {
       title: 'My first Vue App :)',
-      header: 'Sign up for the Giveaway!',
-      text: 'Grab your Hidden Cat Swag for half price!',
-      showModal: false
+      showModal: false,
+      showModalTwo: false
     }
   },
   methods: {
       toggleModal(){
         this.showModal = !this.showModal
+      },
+      toggleModalTwo(){
+        this.showModalTwo = !this.showModalTwo
       }
   }
 }
 </script>
 
 <style>
-#app {
+#app, .modals {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -50,5 +61,8 @@ h1{
   border-bottom: 1px solid #ddd;
   display: inline-block;
   padding-bottom: 10px;
+}
+button{
+  margin-right: 10px;
 }
 </style>
